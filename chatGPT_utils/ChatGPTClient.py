@@ -1,6 +1,6 @@
 import os  # Importing the os module to interact with the operating system
-import sys  # Importing the sys module for system-specific parameters and functions
 import openai  # Importing the OpenAI library to interact with OpenAI's API
+import json
 
 # Get API Key from environment variable
 api_key = os.getenv("OPENAI_API_KEY")  # Retrieving the OpenAI API key from environment variables
@@ -130,3 +130,40 @@ def get_completion_from_messages(messages,
         max_tokens=max_tokens,  # Limit response length
     )
     return response.choices[0].message.content  # Return the generated response
+
+
+def read_string_to_list(input_string):
+    if input_string is None:
+        return None
+
+    try:
+        input_string = input_string.replace("'", "\"")  # Replace single quotes with double quotes for valid JSON
+        data = json.loads(input_string)
+        return data
+    except json.JSONDecodeError:
+        print("Error: Invalid JSON string")
+        return None
+
+
+import ast  # Importing the 'ast' module for safe evaluation of expressions
+
+def read_string_to_list_safe(input_string):
+    """
+    Safely converts a string representation of a list into an actual Python list.
+    """
+    if input_string is None:
+        return None  # Return None if the input is None
+
+    try:
+        return ast.literal_eval(input_string)  # Safely evaluates the string as a Python literal
+    except (SyntaxError, ValueError):  # Catch syntax errors or value errors if parsing fails
+        print("Error: Invalid list format")  # Print an error message for invalid input
+        return None  # Return None in case of failure
+
+
+def get_moderation_response (input_string):
+    response = client.moderations.create(
+        input=input_string
+    )
+    moderation_output = response.results[0]
+    return moderation_output
