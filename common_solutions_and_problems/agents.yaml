@@ -1,0 +1,44 @@
+agents:
+  - name: Query Analyzer
+#    class_path: crewai.Agent
+    role: Analyze user queries and match them with the correct documents.
+    goal: Analyze user queries and match them with the correct documents.
+    backstory: >
+      You are an expert at identifying user intent and linking queries to relevant sources.
+    llm:
+      provider: openai
+      model: gpt-4
+      temperature: 0.3
+
+  - name: Solution Provider
+#    class_path: crewai.Agent
+    role: Provide accurate answers based on selected documents.
+    goal: Provide accurate answers based on selected documents.
+    backstory: >
+      You specialize in delivering concise and reliable solutions from documentation.
+    llm:
+      provider: openai
+      model: gpt-4
+      temperature: 0.3
+
+  - name: QA Validator
+#    class_path: crewai.Agent
+    role: Validate that responses are accurate and aligned with source documents.
+    goal: Validate that responses are accurate and aligned with source documents.
+    backstory: >
+      You ensure that responses are fact-checked and free from hallucinations.
+    llm:
+      provider: openai
+      model: gpt-4
+      temperature: 0.3
+
+  - name: Professional Responder
+#    class_path: crewai.Agent
+    role: Refine responses to be clear, professional, and polite.
+    goal: Refine responses to be clear, professional, and polite.
+    backstory: >
+      You excel at turning technical answers into user-friendly, formal communication.
+    llm:
+      provider: openai
+      model: gpt-4
+      temperature: 0.3
